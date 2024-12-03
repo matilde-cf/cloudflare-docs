@@ -157,19 +157,21 @@ async function handleLink(link: Link): Promise<Link> {
 	return link;
 }
 
-filtered.entries = await Promise.all(
-	filtered.entries.map((entry) => {
-		if (entry.type === "group") {
-			return handleGroup(entry);
-		} else {
-			return handleLink(entry);
-		}
-	}),
-);
+if (currentSection !== "release-notes") {
+	filtered.entries = await Promise.all(
+		filtered.entries.map((entry) => {
+			if (entry.type === "group") {
+				return handleGroup(entry);
+			} else {
+				return handleLink(entry);
+			}
+		}),
+	);
 
-filtered.entries = filtered.entries.sort(sortGroup);
+	filtered.entries = filtered.entries.sort(sortGroup);
 
-filtered.entries[0].label = "Overview";
+	filtered.entries[0].label = "Overview";
+}
 
 const lookupProductTitle = async (slug: string) => {
 	const segments = slug.split("/");
@@ -181,6 +183,10 @@ const lookupProductTitle = async (slug: string) => {
 		const entryData = await getEntry("learning-paths", path);
 
 		return `${entryData?.data?.title} (Learning Paths)`;
+	}
+
+	if (product === "release-notes") {
+		return "Release notes";
 	}
 
 	const entryData = await getEntry("products", product);

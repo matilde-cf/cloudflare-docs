@@ -8,5 +8,6 @@ export * from "./notifications";
 export * from "./pages-build-environment";
 export * from "./pages-framework-presets";
 export * from "./partials";
+export * from "./release-notes";
 export * from "./videos";
 export * from "./workers-ai-models";

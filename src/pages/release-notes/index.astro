@@ -1,0 +1,94 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { getCollection } from "astro:content";
+import { LinkButton, Steps } from "~/components";
+import { format } from "date-fns";
+
+const notes = await getCollection("release-notes");
+
+const months = Object.entries(
+	Object.groupBy(notes, (note) => note.id.split("/").slice(0, 2).join("/")),
+);
+
+const days = Object.entries(
+	Object.groupBy(notes, (note) => note.id.split("/").slice(0, 3).join("/")),
+);
+
+const sidebar = [
+	{
+		label: "release-notes",
+		items: [
+			{
+				label: "Latest releases",
+				link: "/release-notes/",
+			},
+			...months.map(([date, entries]) => {
+			return {
+				label: format(date, "MMMM yyyy"),
+				items: entries
+					?.sort()
+					.reverse()
+					.map((entry) => {
+						const date = entry.id.split("/").slice(0, 3).join("/");
+						const formatted = format(date, "MMMM dd");
+
+						return {
+							label: `${formatted} - ${entry.data.title}`,
+							link: `/release-notes/${entry.slug}/`,
+						};
+					}),
+			};
+		})
+	]
+	},
+];
+---
+
+<StarlightPage
+	frontmatter={{ title: "Release notes", tableOfContents: false }}
+	sidebar={sidebar}
+	hideBreadcrumbs={true}
+>
+	<LinkButton href="/release-notes/rss.xml" icon="rss" style={{ padding: "0.4375rem 1.125rem" }}>RSS</LinkButton>
+	<div class="grid grid-cols-[10%_90%]">
+		{
+			days.sort().reverse().map(([date, entries]) => {
+				const formatted = format(date, "MMMM dd");
+
+				return (
+					<div class="!mt-0">
+						<p class="text-xs">{formatted}</p>
+					</div>
+					<Steps>
+						<ol class="!mt-0">
+							{
+								entries?.map((entry) => (
+									<li>
+										<a href={`/release-notes/${entry.slug}/`}>
+											<strong>
+												{entry.data.title}
+											</strong>
+										</a>
+										<p>{entry.data.description}</p>
+										<div class="flex gap-2 items-center">
+											<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
+												{entry.data.tags}
+											</span>
+											<p class="text-xs">{entry.data.products.join(", ")}</p>
+										</div>
+									</li>
+								))
+							}
+						</ol>
+					</Steps>
+				)
+			})
+		}
+	</div>
+</StarlightPage>
+
+<style>
+.sl-steps > li::before {
+	content: "";
+}
+</style>

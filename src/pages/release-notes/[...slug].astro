@@ -1,0 +1,71 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+
+export const getStaticPaths = (async () => {
+	const notes = await getCollection("release-notes");
+
+	return notes.map((note) => {
+		return {
+			params: {
+				slug: note.slug,
+			},
+			props: {
+				note,
+			},
+		};
+	});
+}) satisfies GetStaticPaths;
+
+const notes = await getCollection("release-notes");
+
+const months = Object.entries(
+	Object.groupBy(notes, (note) => note.id.split("/").slice(0, 2).join("/")),
+);
+
+const sidebar = [
+	{
+		label: "release-notes",
+		items: [
+			{
+				label: "Latest releases",
+				link: "/release-notes/",
+			},
+			...months.map(([date, entries]) => {
+				return {
+					label: format(date, "MMMM yyyy"),
+					items: entries
+						?.sort()
+						.reverse()
+						.map((entry) => {
+							const date = entry.id.split("/").slice(0, 3).join("/");
+							const formatted = format(date, "MMMM dd");
+
+							return {
+								label: `${formatted} - ${entry.data.title}`,
+								link: `/release-notes/${entry.slug}/`,
+							};
+						}),
+				};
+			}),
+		],
+	},
+];
+
+const { note } = Astro.props;
+
+const { Content, headings } = await note.render();
+---
+
+<StarlightPage
+	frontmatter={{
+		title: note.data.title,
+	}}
+	sidebar={sidebar}
+	headings={headings}
+	hideBreadcrumbs={true}
+>
+	<Content />
+</StarlightPage>
