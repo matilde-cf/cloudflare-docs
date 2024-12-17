@@ -1,8 +1,10 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { getCollection } from "astro:content";
-import { StarlightIcon, Steps } from "~/components";
+import { Steps } from "~/components";
 import { format } from "date-fns";
+import { Image } from "astro:assets";
+import HeroImage from "~/assets/images/release-notes/hero.svg";
 
 const notes = await getCollection("release-notes");
 
@@ -16,19 +18,25 @@ const days = Object.entries(
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-	<div class="flex mb-20">
+<div class="w-full justify-self-center flex mb-20">
+	<div class="flex justify-between w-full">
 		<div class="flex flex-col">
 			<h1>Changelog</h1>
 			<p>
 				New updates and improvements at Cloudflare.
 				<span>
-					<a href="/release-notes/feed.rss">
-						Subscribe to RSS
-					</a>
+					<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
 				</span>
 			</p>
+			<p>
+				<a href="/release-notes/" class="no-underline">← Back to all posts</a>
+			</p>
+		</div>
+		<div class="!mt-0">
+			<Image src={HeroImage} alt="hero image" height="175" />
 		</div>
 	</div>
+</div>
 	<div class="grid grid-cols-[10%_90%] justify-self-center">
 		{
 			days.sort().reverse().map(([date, entries]) => {
@@ -79,6 +87,10 @@ const days = Object.entries(
 </StarlightPage>
 
 <style>
+:root {
+	--sl-content-width: 55rem !important;
+}
+
 .sl-steps > li::before {
 	content: "•";
 	font-size: calc(var(--bullet-size) * 2);

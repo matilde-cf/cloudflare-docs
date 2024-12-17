@@ -3,7 +3,8 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
-import { StarlightIcon } from "~/components";
+import { Image } from "astro:assets";
+import HeroImage from "~/assets/images/release-notes/hero.svg";
 
 export const getStaticPaths = (async () => {
 	const notes = await getCollection("release-notes");
@@ -20,8 +21,6 @@ export const getStaticPaths = (async () => {
 	});
 }) satisfies GetStaticPaths;
 
-const notes = await getCollection("release-notes");
-
 const { note } = Astro.props;
 
 const { Content, headings } = await note.render();
@@ -36,25 +35,26 @@ const { Content, headings } = await note.render();
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-	<div class="flex mb-20">
-		<div class="flex flex-col">
-			<h1>Changelog</h1>
-			<p>
-				New updates and improvements at Cloudflare.
-				<span>
-					<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
-				</span>
-			</p>
-			<p>
-				<StarlightIcon
-					name="left-arrow"
-					class="align-middle !inline text-accent"
-				/>
-				<a href="/release-notes/" class="no-underline">Back to all posts</a>
-			</p>
+	<div class="w-full justify-self-center flex mb-20">
+		<div class="flex justify-between w-full">
+			<div class="flex flex-col">
+				<h1>Changelog</h1>
+				<p>
+					New updates and improvements at Cloudflare.
+					<span>
+						<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
+					</span>
+				</p>
+				<p>
+					<a href="/release-notes/" class="no-underline">← Back to all posts</a>
+				</p>
+			</div>
+			<div>
+				<Image src={HeroImage} alt="hero image" height="175" />
+			</div>
 		</div>
 	</div>
-	<div class="max-w-3xl w-full justify-self-center">
+	<div class="w-full justify-self-center">
 		<h2>{note.data.title}</h2>
 		<div>
 			<strong
@@ -73,3 +73,9 @@ const { Content, headings } = await note.render();
 		</div>
 	</div>
 </StarlightPage>
+
+<style>
+	:root {
+		--sl-content-width: 55rem !important;
+	}
+</style>
