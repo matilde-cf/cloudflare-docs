@@ -1,6 +1,6 @@
 ---
 order: 3
-title: ⬆️Migrating from Version 2
+title: ⬆️ Migrating from Version 2
 ---
 
 Miniflare v3 now uses [`workerd`](https://github.com/cloudflare/workerd), the
@@ -30,7 +30,7 @@ please open an issue on
 
 We have tried to keep Miniflare v3's API close to Miniflare v2 where possible,
 but many options and methods have been removed or changed with the switch to the
-open-source `workerd` runtime.
+open-source `workerd` runtime. See the [Getting Started guide for the new API docs](/workers/miniflare/get-started)
 
 ### Updated Options
 
@@ -108,7 +108,7 @@ open-source `workerd` runtime.
 
     const message = "The count is ";
     const mf = new Miniflare({
-    // Options shared between Workers such as HTTP and persistence configuration
+    	// Options shared between Workers such as HTTP and persistence configuration
     	// should always be defined at the top level.
     	host: "0.0.0.0",
     	port: 8787,
@@ -133,13 +133,13 @@ open-source `workerd` runtime.
               // Get the message defined outside
               const response = await env.CUSTOM.fetch("http://host/");
               const message = await response.text();
-    
+
               // Increment the count 3 times
               await env.INCREMENTER.fetch("http://host/");
               await env.INCREMENTER.fetch("http://host/");
               await env.INCREMENTER.fetch("http://host/");
               const count = await env.COUNTS.get("count");
-    
+
               return new Response(message + count);
             }
           }`,
