@@ -3,7 +3,7 @@ order: 1
 title: Get Started
 ---
 
-The Miniflare API allows you to dispatch events to workers without making actual HTTP requests, simulate connections between Workers, and interact with local emulations of storage products like [KV](/workers/miniflare/storage/kv), [R2](/workers/miniflare/storage/r2), and [Durable Objects](/workers/miniflare/storage/durable-objects). This makes it great for writing tests, or other advanced use cases where you need finer-grained control.
+The Miniflare API allows you to dispatch events to workers without making actual HTTP requests, simulate connections between Workers, and interact with local emulations of storage products like [KV](/workers/testing/miniflare/storage/kv), [R2](/workers/testing/miniflare/storage/r2), and [Durable Objects](/workers/testing/miniflare/storage/durable-objects). This makes it great for writing tests, or other advanced use cases where you need finer-grained control.
 
 ## Installation
 
@@ -47,7 +47,7 @@ console.log(await res.text()); // Hello Miniflare!
 await mf.dispose();
 ```
 
-The [rest of these docs](/workers/miniflare/core/fetch) go into more detail on configuring
+The [rest of these docs](/workers/testing/miniflare/core/fetch) go into more detail on configuring
 specific features.
 
 ### String and File Scripts
@@ -162,7 +162,7 @@ const queueResult = await worker.queue("needy", [
 console.log(queueResult); // { outcome: "ok", retryAll: true, ackAll: false, explicitRetries: [], explicitAcks: []}
 ```
 
-See [📨 Fetch Events](/workers/miniflare/core/fetch) and [⏰ Scheduled Events](/workers/miniflare/core/scheduled)
+See [📨 Fetch Events](/workers/testing/miniflare/core/fetch) and [⏰ Scheduled Events](/workers/testing/miniflare/core/scheduled)
 for more details.
 
 ### HTTP Server

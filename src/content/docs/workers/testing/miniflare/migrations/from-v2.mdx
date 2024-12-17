@@ -30,7 +30,7 @@ please open an issue on
 
 We have tried to keep Miniflare v3's API close to Miniflare v2 where possible,
 but many options and methods have been removed or changed with the switch to the
-open-source `workerd` runtime. See the [Getting Started guide for the new API docs](/workers/miniflare/get-started)
+open-source `workerd` runtime. See the [Getting Started guide for the new API docs](/workers/testing/miniflare/get-started)
 
 ### Updated Options
 
@@ -198,7 +198,7 @@ open-source `workerd` runtime. See the [Getting Started guide for the new API do
     [`workerd`](https://github.com/cloudflare/workerd) server listening on the
     configured `host` and `port`, so these methods are redundant.
 - `dispatchScheduled()/startScheduled()`
-  - The functionality of `dispatchScheduled` can now be done via `getWorker()`. For more information read the [scheduled events documentation](/workers/miniflare/core/scheduled#dispatching-events).
+  - The functionality of `dispatchScheduled` can now be done via `getWorker()`. For more information read the [scheduled events documentation](/workers/testing/miniflare/core/scheduled#dispatching-events).
 - `dispatchQueue()`
   - Use the `queue()` method on
     [service bindings](/workers/runtime-apis/bindings/service-bindings)

@@ -92,4 +92,4 @@ console.log(await res.text()); // "1"
 
 Miniflare supports the `script_name` option for accessing Durable Objects
 exported by other scripts. This requires mounting the other worker as described
-in [🔌 Multiple Workers](/workers/miniflare/core/multiple-workers).
+in [🔌 Multiple Workers](/workers/testing/miniflare/core/multiple-workers).

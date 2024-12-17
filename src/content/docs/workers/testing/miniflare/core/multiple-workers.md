@@ -118,5 +118,5 @@ const res = await mf.dispatchFetch("http://api.mf/todos/update/1", { ... });
 
 Miniflare supports the `script_name` option for accessing Durable Objects
 exported by other scripts. See
-[📌 Durable Objects](/workers/miniflare/storage/durable-objects#using-a-class-exported-by-another-script)
+[📌 Durable Objects](/workers/testing/miniflare/storage/durable-objects#using-a-class-exported-by-another-script)
 for more details.
