@@ -3,6 +3,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
+import { StarlightIcon } from "~/components";
 
 export const getStaticPaths = (async () => {
 	const notes = await getCollection("release-notes");
@@ -21,39 +22,6 @@ export const getStaticPaths = (async () => {
 
 const notes = await getCollection("release-notes");
 
-const months = Object.entries(
-	Object.groupBy(notes, (note) => note.id.split("/").slice(0, 2).join("/")),
-);
-
-const sidebar = [
-	{
-		label: "release-notes",
-		items: [
-			{
-				label: "Latest releases",
-				link: "/release-notes/",
-			},
-			...months.map(([date, entries]) => {
-				return {
-					label: format(date, "MMMM yyyy"),
-					items: entries
-						?.sort()
-						.reverse()
-						.map((entry) => {
-							const date = entry.id.split("/").slice(0, 3).join("/");
-							const formatted = format(date, "MMMM dd");
-
-							return {
-								label: `${formatted} - ${entry.data.title}`,
-								link: `/release-notes/${entry.slug}/`,
-							};
-						}),
-				};
-			}),
-		],
-	},
-];
-
 const { note } = Astro.props;
 
 const { Content, headings } = await note.render();
@@ -62,10 +30,46 @@ const { Content, headings } = await note.render();
 <StarlightPage
 	frontmatter={{
 		title: note.data.title,
+		template: "splash",
 	}}
-	sidebar={sidebar}
 	headings={headings}
+	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-	<Content />
+	<div class="flex mb-20">
+		<div class="flex flex-col">
+			<h1>Changelog</h1>
+			<p>
+				New updates and improvements at Cloudflare.
+				<span>
+					<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
+				</span>
+			</p>
+			<p>
+				<StarlightIcon
+					name="left-arrow"
+					class="align-middle !inline text-accent"
+				/>
+				<a href="/release-notes/" class="no-underline">Back to all posts</a>
+			</p>
+		</div>
+	</div>
+	<div class="max-w-3xl w-full justify-self-center">
+		<h2>{note.data.title}</h2>
+		<div>
+			<strong
+				>{format(note.id.split("/").slice(0, 3), "MMMM dd")}, 12:00PM</strong
+			>
+			{
+				note.data.products.map((product) => (
+					<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
+						{product}
+					</span>
+				))
+			}
+		</div>
+		<div>
+			<Content />
+		</div>
+	</div>
 </StarlightPage>

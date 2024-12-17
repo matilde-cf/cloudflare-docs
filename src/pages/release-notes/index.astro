@@ -1,7 +1,7 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { getCollection } from "astro:content";
-import { LinkButton, Steps } from "~/components";
+import { StarlightIcon, Steps } from "~/components";
 import { format } from "date-fns";
 
 const notes = await getCollection("release-notes");
@@ -19,10 +19,16 @@ const days = Object.entries(
 	<div class="flex mb-20">
 		<div class="flex flex-col">
 			<h1>Changelog</h1>
-			<p>New updates and improvements at Cloudflare.</p>
+			<p>
+				New updates and improvements at Cloudflare.
+				<span>
+					<a href="/release-notes/feed.rss">
+						Subscribe to RSS
+					</a>
+				</span>
+			</p>
 		</div>
 	</div>
-	<!-- <LinkButton href="/release-notes/rss.xml" icon="rss" style={{ padding: "0.4375rem 1.125rem" }}>RSS</LinkButton> -->
 	<div class="grid grid-cols-[10%_90%] justify-self-center">
 		{
 			days.sort().reverse().map(([date, entries]) => {
@@ -30,8 +36,10 @@ const days = Object.entries(
 
 				return (
 					<div class="!mt-0">
-						<strong class="text-xs">{formatted}</strong>
-						<p class="text-xs">12:00PM</p>
+						<p class="leading-none">
+							<strong class="text-xs">{formatted}</strong>
+							<span class="text-xs">12:00PM</span>
+						</p>
 					</div>
 					<Steps>
 						<ol class="!mt-0 max-w-3xl">
@@ -41,14 +49,20 @@ const days = Object.entries(
 
 									return (
 										<li>
+											<div>
 											<a href={`/release-notes/${entry.slug}/`} class="no-underline hover:underline">
 												<h3 class="text-[var(--sl-color-text)]">
 													{entry.data.title}
 												</h3>
 											</a>
-											<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
-													{entry.data.products.join(", ")}
-											</span>
+											{
+												entry.data.products.map((product) => (
+													<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
+														{product}
+													</span>
+												))
+											}
+											</div>
 											<p>
 												<Content />
 											</p>
@@ -66,10 +80,9 @@ const days = Object.entries(
 
 <style>
 .sl-steps > li::before {
-	content: "";
-}
-
-:root {
-	--sl-content-width: 70rem !important;
+	content: "•";
+	font-size: calc(var(--bullet-size) * 2);
+	line-height: calc(var(--bullet-size) / 1.5);
+	color: var(--sl-color-accent);
 }
 </style>

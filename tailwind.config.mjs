@@ -19,6 +19,7 @@ export default {
 		extend: {
 			colors: {
 				accent: {
+					DEFAULT: "var(--sl-color-accent)",
 					200: "var(--tw-accent-200)",
 					600: "var(--tw-accent-600)",
 					900: "var(--tw-accent-900)",

@@ -118,3 +118,13 @@ const hideBreadcrumbs = Astro.props.hideBreadcrumbs;
 		--color-link-breadcrumbs: var(--sl-color-text-accent);
 	}
 </style>
+
+{ hideTitle && hideBreadcrumbs && 
+	<style>
+		main {
+			.content-panel:first-of-type {
+				display: none;
+			}
+		}
+	</style>
+}
