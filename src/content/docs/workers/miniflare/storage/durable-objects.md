@@ -3,8 +3,8 @@ order: 1
 title: 📌 Durable Objects
 ---
 
-- [Durable Objects Reference](/workers/runtime-apis/durable-objects)
-- [Using Durable Objects](/workers/learning/using-durable-objects)
+- [Durable Objects Reference](/durable-objects/api/)
+- [Using Durable Objects](/durable-objects/)
 
 ## Objects
 

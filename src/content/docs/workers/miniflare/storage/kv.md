@@ -3,7 +3,7 @@ order: 0
 title: 📦 KV
 ---
 
-- [KV Reference](/workers/runtime-apis/kv)
+- [KV Reference](/kv/api/)
 
 ## Namespaces
 

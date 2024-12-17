@@ -198,12 +198,12 @@ open-source `workerd` runtime. See the [Getting Started guide for the new API do
     [`workerd`](https://github.com/cloudflare/workerd) server listening on the
     configured `host` and `port`, so these methods are redundant.
 - `dispatchScheduled()/startScheduled()`
-  - The functionality of `dispatchScheduled` can now be done via `getWorker()`. For more information read the [scheduled events documentation](/core/scheduled#dispatching-events).
+  - The functionality of `dispatchScheduled` can now be done via `getWorker()`. For more information read the [scheduled events documentation](/workers/miniflare/core/scheduled#dispatching-events).
 - `dispatchQueue()`
   - Use the `queue()` method on
-    [service bindings](/workers/platform/bindings/about-service-bindings/)
+    [service bindings](/workers/runtime-apis/bindings/service-bindings)
     or
-    [queue producer bindings](/queues/platform/configuration/#producer)
+    [queue producer bindings](/queues/configuration/configure-queues/#producer)
     instead.
 - `getGlobalScope()/getBindings()/getModuleExports()`
   - These methods returned objects from inside the Workers sandbox. Since

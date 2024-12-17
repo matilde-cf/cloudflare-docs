@@ -3,8 +3,7 @@ order: 1
 title: "⏰ Scheduled Events"
 ---
 
-- [`ScheduledEvent` Reference](/workers/runtime-apis/scheduled-event)
-- [`addEventListener` Reference](/workers/runtime-apis/add-event-listener)
+- [`ScheduledEvent` Reference](/workers/runtime-apis/handlers/scheduled/)
 
 ## Cron Triggers
 

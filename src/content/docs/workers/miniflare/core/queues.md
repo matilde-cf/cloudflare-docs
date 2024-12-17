@@ -36,7 +36,7 @@ const mf = new Miniflare({
 
 ## Manipulating Outside Workers
 
-For testing, it can be valuable to interact with Queues outside a Worker. You can do this by using the [`workers` option](/core/multiple-workers) to run multiple Workers in the same instance:
+For testing, it can be valuable to interact with Queues outside a Worker. You can do this by using the `workers` option to run multiple Workers in the same instance:
 
 ```js
 const mf = new Miniflare({

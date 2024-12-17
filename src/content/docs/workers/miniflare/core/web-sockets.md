@@ -4,7 +4,7 @@ title: "✉️ WebSockets"
 ---
 
 - [WebSockets Reference](/workers/runtime-apis/websockets)
-- [Using WebSockets](/workers/learning/using-websockets)
+- [Using WebSockets](/workers/examples/websockets/)
 
 ## Server
 

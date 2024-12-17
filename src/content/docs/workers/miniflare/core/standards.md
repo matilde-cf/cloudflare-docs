@@ -9,7 +9,6 @@ title: "🕸 Web Standards"
 - [Request Reference](/workers/runtime-apis/request)
 - [Response Reference](/workers/runtime-apis/response)
 - [Streams Reference](/workers/runtime-apis/streams)
-- [Using Streams](/workers/learning/using-streams)
 - [Web Crypto Reference](/workers/runtime-apis/web-crypto)
 
 ## Mocking Outbound `fetch` Requests

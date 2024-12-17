@@ -3,9 +3,7 @@ order: 0
 title: "📨 Fetch Events"
 ---
 
-- [`FetchEvent` Reference](/workers/runtime-apis/fetch-event)
-- [`FetchEvent` Lifecycle](/workers/learning/fetch-event-lifecycle)
-- [`addEventListener` Reference](/workers/runtime-apis/add-event-listener)
+- [`FetchEvent` Reference](/workers/runtime-apis/handlers/fetch/)
 
 ## HTTP Requests
 
@@ -15,9 +13,7 @@ Whenever an HTTP request is made, a `Request` object is dispatched to your worke
 Miniflare will log the method, path, status, and the time it took to respond.
 
 If the Worker throws an error whilst generating a response, an error page
-containing the stack trace is returned instead. You can use
-[🗺 Source Maps](/developing/source-maps) to make these point to your source
-files.
+containing the stack trace is returned instead.
 
 ## Dispatching Events
 

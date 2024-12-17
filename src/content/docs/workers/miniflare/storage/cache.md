@@ -4,7 +4,7 @@ title: ✨ Cache
 ---
 
 - [Cache Reference](/workers/runtime-apis/cache)
-- [How the Cache works](/workers/learning/how-the-cache-works#cache-api)
+- [How the Cache works](/workers/reference/how-the-cache-works/#cache-api)
   (note that cache using `fetch` is unsupported)
 
 ## Default Cache

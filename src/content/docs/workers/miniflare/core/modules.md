@@ -3,7 +3,7 @@ order: 3
 title: "📚 Modules"
 ---
 
-- [Modules Reference](/workers/cli-wrangler/configuration#modules)
+- [Modules Reference](/workers/reference/migrate-to-module-workers/)
 
 ## Enabling Modules
 
