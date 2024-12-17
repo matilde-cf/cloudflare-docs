@@ -2,9 +2,9 @@
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
+import Header from "~/components/changelogs/Header.astro";
+import ProductPills from "~/components/changelogs/ProductPills.astro";
 import { format } from "date-fns";
-import { Image } from "astro:assets";
-import HeroImage from "~/assets/images/release-notes/hero.svg";
 
 export const getStaticPaths = (async () => {
 	const notes = await getCollection("release-notes");
@@ -35,38 +35,14 @@ const { Content, headings } = await note.render();
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-	<div class="w-full justify-self-center flex mb-20">
-		<div class="flex justify-between w-full">
-			<div class="flex flex-col">
-				<h1>Changelog</h1>
-				<p>
-					New updates and improvements at Cloudflare.
-					<span>
-						<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
-					</span>
-				</p>
-				<p>
-					<a href="/release-notes/" class="no-underline">← Back to all posts</a>
-				</p>
-			</div>
-			<div class="!mt-0">
-				<Image src={HeroImage} alt="hero image" height="175" />
-			</div>
-		</div>
-	</div>
+	<Header showBackLink={true} />
 	<div class="w-full justify-self-center">
 		<h2>{note.data.title}</h2>
 		<div>
 			<strong
 				>{format(note.id.split("/").slice(0, 3), "MMMM dd")}, 12:00PM</strong
 			>
-			{
-				note.data.products.map((product) => (
-					<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
-						{product}
-					</span>
-				))
-			}
+			<ProductPills products={note.data.products} />
 		</div>
 		<div>
 			<Content />

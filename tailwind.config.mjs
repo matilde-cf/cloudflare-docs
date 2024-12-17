@@ -18,6 +18,9 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				black: {
+					DEFAULT: "var(--sl-color-white)",
+				},
 				accent: {
 					DEFAULT: "var(--sl-color-accent)",
 					200: "var(--tw-accent-200)",

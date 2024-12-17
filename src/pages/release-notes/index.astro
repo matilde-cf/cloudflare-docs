@@ -1,10 +1,12 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { getCollection } from "astro:content";
+
+import Header from "~/components/changelogs/Header.astro";
+import ProductPills from "~/components/changelogs/ProductPills.astro";
+
 import { Steps } from "~/components";
 import { format } from "date-fns";
-import { Image } from "astro:assets";
-import HeroImage from "~/assets/images/release-notes/hero.svg";
 
 const notes = await getCollection("release-notes");
 
@@ -18,22 +20,7 @@ const days = Object.entries(
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-<div class="w-full justify-self-center flex mb-20">
-	<div class="flex justify-between w-full">
-		<div class="flex flex-col">
-			<h1>Changelog</h1>
-			<p>
-				New updates and improvements at Cloudflare.
-				<span>
-					<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
-				</span>
-			</p>
-		</div>
-		<div class="!mt-0">
-			<Image src={HeroImage} alt="hero image" height="175" />
-		</div>
-	</div>
-</div>
+	<Header />
 	<div class="md:grid md:grid-cols-[10%_90%] justify-self-center">
 		{
 			days.sort().reverse().map(([date, entries]) => {
@@ -60,13 +47,7 @@ const days = Object.entries(
 													{entry.data.title}
 												</h3>
 											</a>
-											{
-												entry.data.products.map((product) => (
-													<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
-														{product}
-													</span>
-												))
-											}
+											<ProductPills products={entry.data.products} />
 											</div>
 											<p>
 												<Content />
