@@ -34,14 +34,14 @@ const days = Object.entries(
 		</div>
 	</div>
 </div>
-	<div class="grid grid-cols-[10%_90%] justify-self-center">
+	<div class="md:grid md:grid-cols-[10%_90%] justify-self-center">
 		{
 			days.sort().reverse().map(([date, entries]) => {
 				const formatted = format(date, "MMMM dd");
 
 				return (
 					<div class="!mt-0">
-						<p class="leading-none">
+						<p class="md:leading-none">
 							<strong class="text-xs">{formatted}</strong>
 							<span class="text-xs">12:00PM</span>
 						</p>
