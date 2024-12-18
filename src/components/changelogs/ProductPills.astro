@@ -18,7 +18,7 @@ const data = await getEntries(products);
 	{
 		data.map((product) => (
 			<a href={product.data.product.url} class="no-underline">
-				<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
+				<span class="ml-1 rounded-full bg-orange-200 px-2 py-0.5 text-xs text-orange-900">
 					{product.data.product.title}
 				</span>
 			</a>
