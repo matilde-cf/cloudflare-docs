@@ -25,7 +25,7 @@ const days = Object.entries(
 	hideBreadcrumbs={true}
 >
 	<Header />
-	<div class="md:grid md:grid-cols-[15%_95%] justify-self-center">
+	<div class="w-[50rem] justify-self-center md:grid md:grid-cols-[15%_auto]">
 		{
 			days
 				.sort()
@@ -36,13 +36,13 @@ const days = Object.entries(
 					return (
 						<>
 							<div class="!mt-0">
-								<p class="md:leading-none text-right pr-4 content-center">
+								<p class="content-center pr-4 text-right md:leading-none">
 									<strong class="text-xs">{formatted}</strong>
 									<span class="text-xs">12:00PM</span>
 								</p>
 							</div>
 							<Steps>
-								<ol class="!mt-0 max-w-3xl">
+								<ol class="!mt-0">
 									{entries?.map(async (entry) => {
 										const { Content } = await entry.render();
 
@@ -53,7 +53,7 @@ const days = Object.entries(
 														href={`/release-notes/${entry.slug}/`}
 														class="no-underline hover:underline"
 													>
-														<h3 class="!leading-[28px] text-black mb-4">
+														<h3 class="mb-4 !leading-[28px] text-black">
 															{entry.data.title}
 														</h3>
 													</a>
@@ -76,7 +76,7 @@ const days = Object.entries(
 
 <style>
 	:root {
-		--sl-content-width: 50rem !important;
+		--sl-content-width: 100% !important;
 
 		.sl-markdown-content
 			:not(a, strong, em, del, span, input, code, br)
@@ -113,7 +113,7 @@ const days = Object.entries(
 		}
 
 		.content-panel {
-			padding-top: 0px !important;
+			padding: 0px !important;
 		}
 
 		.feedback-prompt-content {

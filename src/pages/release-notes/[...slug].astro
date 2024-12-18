@@ -36,36 +36,38 @@ const { Content, headings } = await note.render();
 	hideBreadcrumbs={true}
 >
 	<Header />
-	<div class="!mt-0 mb-10">
-		<a href="/release-notes/" class="no-underline">
-			<span class="text-accent">← </span>
-			<span class="text-black">Back to all posts</span>
-		</a>
-	</div>
-	<div class="w-full justify-self-center">
-		<h2>{note.data.title}</h2>
-		<div>
-			<strong
-				>{format(note.id.split("/").slice(0, 3), "MMMM dd")}, 12:00PM</strong
-			>
-			<ProductPills products={note.data.products} />
+	<div class="w-[50rem] justify-self-center">
+		<div class="!mt-0 mb-10">
+			<a href="/release-notes/" class="no-underline">
+				<span class="text-accent">← </span>
+				<span class="text-black">Back to all posts</span>
+			</a>
 		</div>
-		<div>
-			<Content />
+		<div class="w-full justify-self-center">
+			<h2>{note.data.title}</h2>
+			<div>
+				<strong
+					>{format(note.id.split("/").slice(0, 3), "MMMM dd")}, 12:00PM</strong
+				>
+				<ProductPills products={note.data.products} />
+			</div>
+			<div>
+				<Content />
+			</div>
 		</div>
 	</div>
 </StarlightPage>
 
 <style>
 	:root {
-		--sl-content-width: 50rem !important;
+		--sl-content-width: 100% !important;
 
 		.sl-markdown-content {
 			margin-top: 0px !important;
 		}
 
 		.content-panel {
-			padding-top: 0px !important;
+			padding: 0px !important;
 		}
 
 		.sl-markdown-content
