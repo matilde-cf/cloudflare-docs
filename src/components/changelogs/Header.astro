@@ -10,15 +10,15 @@ import { releaseNotesSchema } from "~/schemas";
 type Props = z.infer<typeof props>;
 
 const props = z.object({
-	entries: z.array(z.any()),
+	entries: z.array(z.any()).optional(),
 });
 
 const { entries } = props.parse(Astro.props);
 
 async function uniqueProducts(
-	entries: Array<CollectionEntry<"release-notes">>,
+	entries?: Array<CollectionEntry<"release-notes">>,
 ) {
-	const products = entries.flatMap((entry) => entry.data.products ?? []);
+	const products = entries?.flatMap((entry) => entry.data.products ?? []);
 
 	const unique = [...new Set(products)];
 
@@ -57,22 +57,24 @@ const products = await uniqueProducts(entries);
 					</a>
 				</span>
 			</p>
-			<div>
-				<select id="release-notes-filter" class="mt-2 h-8 w-52">
-					<option value="all">All products</option>
-					{
-						products
-							.sort((a, b) => a.id.localeCompare(b.id))
-							.map(async (product) => {
-								return (
-									<option value={product.id}>
-										{product.data.product.title}
-									</option>
-								);
-							})
-					}
-				</select>
-			</div>
+			{
+				entries && (
+					<div>
+						<select id="release-notes-filter" class="mt-2 h-8 w-52">
+							<option value="all">All products</option>
+							{products
+								.sort((a, b) => a.id.localeCompare(b.id))
+								.map(async (product) => {
+									return (
+										<option value={product.id}>
+											{product.data.product.title}
+										</option>
+									);
+								})}
+						</select>
+					</div>
+				)
+			}
 		</div>
 		<div class="!mt-0 hidden sm:block">
 			<Image src={HeroImage} alt="hero image" height="240" />
