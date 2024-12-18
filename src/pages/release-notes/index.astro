@@ -25,7 +25,9 @@ const days = Object.entries(
 	hideBreadcrumbs={true}
 >
 	<Header />
-	<div class="w-[50rem] justify-self-center md:grid md:grid-cols-[15%_auto]">
+	<div
+		class="max-w-[50rem] justify-self-center px-4 md:grid md:grid-cols-[15%_auto]"
+	>
 		{
 			days
 				.sort()
@@ -36,7 +38,7 @@ const days = Object.entries(
 					return (
 						<>
 							<div class="!mt-0">
-								<p class="content-center pr-4 text-right md:leading-none">
+								<p class="md:content-center md:pr-4 md:text-right md:leading-none">
 									<strong class="text-xs">{formatted}</strong>
 									<span class="text-xs">12:00PM</span>
 								</p>
