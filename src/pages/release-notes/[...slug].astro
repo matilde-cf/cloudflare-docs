@@ -36,7 +36,7 @@ const { Content, headings } = await note.render();
 	hideBreadcrumbs={true}
 >
 	<Header />
-	<div class="max-w-[50rem] justify-self-center">
+	<div class="w-full max-w-[50rem] justify-self-center">
 		<div class="!mt-0 mb-10">
 			<a href="/release-notes/" class="no-underline">
 				<span class="text-accent">← </span>
@@ -68,6 +68,11 @@ const { Content, headings } = await note.render();
 
 		.content-panel {
 			padding: 0px !important;
+		}
+
+		#feedback-thumbs,
+		#footer-links {
+			justify-self: center;
 		}
 
 		.sl-markdown-content
