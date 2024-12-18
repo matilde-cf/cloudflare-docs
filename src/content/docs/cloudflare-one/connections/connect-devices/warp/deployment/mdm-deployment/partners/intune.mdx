@@ -130,26 +130,32 @@ Review the following steps to approve and deploy the Cloudflare One Agent applic
 1. Log into the Microsoft Intune admin center.
 2. Go to **Apps** > **All apps** > select **Add**.
 
-![Microsoft Itune admin center](~/assets/images/cloudflare-one/connections/microsoft-intune-admin-center.png)
+	![Microsoft Itune admin center](~/assets/images/cloudflare-one/connections/microsoft-intune-admin-center.png)
 
 3. In App type, select _Managed Google Play_.
 4. Search for _Cloudflare One Agent_ > select the app > select **Sync**.
 
-![Microsoft Itune admin center](~/assets/images/cloudflare-one/connections/cloudflare-one-agent.png)
+	![Microsoft Itune admin center](~/assets/images/cloudflare-one/connections/cloudflare-one-agent.png)
 
 5. Once the sync is successful, admin will see the Cloudflare One Agent app within the **All apps** view in the Microsoft Intune admin center.
 
 #### Configure your Cloudflare One Agent app policy
 
-Review the following steps to configure your Cloudflare One Agent app policy:
+To configure your Cloudflare One Agent app policy:
 
-1. Go to **Apps** > **App configuration policies** > select **Add** > **Managed Devices**.
+1. In the Microsoft Intune admin center, go to **Apps** > **App configuration policies** > select **Add** > **Managed Devices**.
+
+	![Configure your Cloudflare One Agent app policy in Microsoft Intune admin center](~/assets/images/cloudflare-one/connections/app-config-policies.png)
+
 2. Fill out the basic details of your configuration policy:
 	1. Enter the **Name** of the profile. (For example: Cloudflare One Agent - configuration policy)
 	2. Select the Platform as **Android Enterprise**.
 	3. Select the desired **Profile Type**. (For example: Personally-Owned Work Profile Only)
-	4. Select **Cloudflare One Agent** as the Targeted app.
-	5. Select on Next.
+	4. Select **Cloudflare One Agent** as the **Targeted app**.
+	5. Select **Next**.
+
+		![Select Cloudflare One Agent as the configuration policy you want to edit](~/assets/images/cloudflare-one/connections/config-policy-details.png)
+
 3. Fill out the settings for the configuration policy.
 	1. Select **Configuration setting format** as **Enter JSON data**.
 	2. Enter your desired deployment parameters in the `managedProperty` field. For example:
@@ -241,4 +247,17 @@ Review the following steps to configure your Cloudflare One Agent app policy:
 	}
 	```
 
-3. 
+	3. After you have configured the deployment parameters, click **Next**.
+4. Fill out the assignments for the configuration policy. The admin can Include or Exclude specific groups of users to this policy. After you finish, select Next.
+5. Review the policy and select **Create**.
+
+#### Assign users to the Cloudflare One Agent application
+
+1. Go to **Apps** > **All Apps** > select **Cloudflare One Agent**.
+2. Under **Manage**, select **Properties** and near **Assignments**, select **Edit**.
+
+	![Assign users to Cloudflare One Agent](~/assets/images/cloudflare-one/connections/assign-users-cf1-agent.png)
+
+3. Add the groups of users in the assignments > select **Review + Save** > select **Save**.
+
+Inture will now deploy the Cloudflare One Agent application on a user's devise with the managed parameters.
