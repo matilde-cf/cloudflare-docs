@@ -14,12 +14,14 @@ const { products } = Astro.props;
 const data = await getEntries(products);
 ---
 
-{
-	data.map((product) => (
-		<a href={product.data.product.url} class="no-underline">
-			<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
-				{product.data.product.title}
-			</span>
-		</a>
-	))
-}
+<div class="flex flex-row gap-2">
+	{
+		data.map((product) => (
+			<a href={product.data.product.url} class="no-underline">
+				<span class="ml-1 bg-orange-200 text-orange-900 rounded-full px-2 py-0.5 text-xs">
+					{product.data.product.title}
+				</span>
+			</a>
+		))
+	}
+</div>

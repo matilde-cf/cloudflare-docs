@@ -16,63 +16,101 @@ const days = Object.entries(
 ---
 
 <StarlightPage
-	frontmatter={{ title: "Release notes", tableOfContents: false, template: "splash" }}
+	frontmatter={{
+		title: "Release notes",
+		tableOfContents: false,
+		template: "splash",
+	}}
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
 	<Header />
-	<div class="md:grid md:grid-cols-[10%_90%] justify-self-center">
+	<div class="md:grid md:grid-cols-[15%_95%] justify-self-center">
 		{
-			days.sort().reverse().map(([date, entries]) => {
-				const formatted = format(date, "MMMM dd");
+			days
+				.sort()
+				.reverse()
+				.map(([date, entries]) => {
+					const formatted = format(date, "MMMM dd");
 
-				return (
-					<div class="!mt-0">
-						<p class="md:leading-none">
-							<strong class="text-xs">{formatted}</strong>
-							<span class="text-xs">12:00PM</span>
-						</p>
-					</div>
-					<Steps>
-						<ol class="!mt-0 max-w-3xl">
-							{
-								entries?.map(async (entry) => {
-									const { Content } = await entry.render();
+					return (
+						<>
+							<div class="!mt-0">
+								<p class="md:leading-none text-right pr-4 content-center">
+									<strong class="text-xs">{formatted}</strong>
+									<span class="text-xs">12:00PM</span>
+								</p>
+							</div>
+							<Steps>
+								<ol class="!mt-0 max-w-3xl">
+									{entries?.map(async (entry) => {
+										const { Content } = await entry.render();
 
-									return (
-										<li>
-											<div>
-											<a href={`/release-notes/${entry.slug}/`} class="no-underline hover:underline">
-												<h3 class="!leading-[28px] text-black">
-													{entry.data.title}
-												</h3>
-											</a>
-											<ProductPills products={entry.data.products} />
-											</div>
-											<p>
-												<Content />
-											</p>
-										</li>
-									)
-								})
-							}
-						</ol>
-					</Steps>
-				)
-			})
+										return (
+											<li>
+												<div>
+													<a
+														href={`/release-notes/${entry.slug}/`}
+														class="no-underline hover:underline"
+													>
+														<h3 class="!leading-[28px] text-black mb-4">
+															{entry.data.title}
+														</h3>
+													</a>
+													<ProductPills products={entry.data.products} />
+												</div>
+												<p>
+													<Content />
+												</p>
+											</li>
+										);
+									})}
+								</ol>
+							</Steps>
+						</>
+					);
+				})
 		}
 	</div>
 </StarlightPage>
 
 <style>
-:root {
-	--sl-content-width: 55rem !important;
-}
+	:root {
+		--sl-content-width: 55rem !important;
 
-.sl-steps > li::before {
-	content: "•" !important;
-	font-size: calc(var(--bullet-size) * 2) !important;
-	line-height: calc(var(--bullet-size) / 1.5) !important;
-	color: var(--sl-color-accent) !important;
-}
+		.sl-markdown-content
+			:not(a, strong, em, del, span, input, code, br)
+			+ :not(
+				a,
+				strong,
+				em,
+				del,
+				span,
+				input,
+				code,
+				br,
+				:where(.not-content *)
+			) {
+			margin-top: 1.5rem;
+		}
+
+		.feedback-prompt-content {
+			display: none !important;
+		}
+
+		.sl-steps {
+			--bullet-size: 24px !important;
+
+			li {
+				padding-inline-start: calc(var(--bullet-size) + 2.5rem) !important;
+			}
+
+			& > li::before {
+				content: "•" !important;
+				font-size: calc(var(--bullet-size) * 2) !important;
+				line-height: calc(var(--bullet-size) / 1.5) !important;
+				color: var(--orange-accent-200) !important;
+			}
+		}
+	}
 </style>
