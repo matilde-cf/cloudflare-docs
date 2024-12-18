@@ -44,6 +44,13 @@ Refer to the [generic instructions for iOS](/cloudflare-one/connections/connect-
 
 Intune allows you to insert [predefined variables](https://learn.microsoft.com/en-us/mem/intune/apps/app-configuration-policies-use-ios#tokens-used-in-the-property-list) into the XML configuration file. For example, you can set the [`unique_client_id`](/cloudflare-one/connections/connect-devices/warp/deployment/mdm-deployment/parameters/#unique_client_id) key to `{{deviceid}}` for a [device UUID posture check](/cloudflare-one/identity/devices/warp-client-checks/device-uuid/) deployment.
 
+### Per-app VPN for iOS
+
+Before proceeding with per-app VPN configuration, you must make sure Autoconnect is disabled for your organization in the Cloudflare dashboard.
+
+
+
+
 ## Android
 
 To deploy WARP on Android devices:
@@ -123,7 +130,7 @@ To deploy WARP on Android devices:
 
 Intune will now deploy the Cloudflare One Agent to user devices.
 
-### Per-app VPN
+### Per-app VPN for Android
 
 Review the following steps to approve and deploy the Cloudflare One Agent application in Microsoft Intunes and use a configuration policy to set up the per-app VPN. To use the per-app VPN, you must have linked your Microsoft Intune account with the Google-managed Play account as described in the instructions above.
 
