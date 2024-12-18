@@ -1,8 +1,35 @@
 ---
 import { Image } from "astro:assets";
+import { z } from "astro:schema";
+import { getEntry, reference, type CollectionEntry } from "astro:content";
 
 import { StarlightIcon } from "..";
 import HeroImage from "~/assets/images/release-notes/hero.svg";
+import { releaseNotesSchema } from "~/schemas";
+
+type Props = z.infer<typeof props>;
+
+const props = z.object({
+	entries: z.array(z.any()),
+});
+
+const { entries } = props.parse(Astro.props);
+
+async function uniqueProducts(
+	entries: Array<CollectionEntry<"release-notes">>,
+) {
+	const products = entries.flatMap((entry) => entry.data.products ?? []);
+
+	const unique = [...new Set(products)];
+
+	return Promise.all(
+		unique.map(async (product) => {
+			return getEntry(product);
+		}),
+	);
+}
+
+const products = await uniqueProducts(entries);
 ---
 
 <div
@@ -30,6 +57,22 @@ import HeroImage from "~/assets/images/release-notes/hero.svg";
 					</a>
 				</span>
 			</p>
+			<div>
+				<select id="release-notes-filter" class="mt-2 h-8 w-52">
+					<option value="all">All products</option>
+					{
+						products
+							.sort((a, b) => a.id.localeCompare(b.id))
+							.map(async (product) => {
+								return (
+									<option value={product.id}>
+										{product.data.product.title}
+									</option>
+								);
+							})
+					}
+				</select>
+			</div>
 		</div>
 		<div class="!mt-0 hidden sm:block">
 			<Image src={HeroImage} alt="hero image" height="240" />

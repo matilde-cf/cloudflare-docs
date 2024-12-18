@@ -1,6 +1,6 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 import Header from "~/components/changelogs/Header.astro";
 import ProductPills from "~/components/changelogs/ProductPills.astro";
@@ -10,9 +10,7 @@ import { format } from "date-fns";
 
 const notes = await getCollection("release-notes");
 
-const days = Object.entries(
-	Object.groupBy(notes, (note) => note.id.split("/").slice(0, 3).join("/")),
-);
+notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <StarlightPage
@@ -24,57 +22,88 @@ const days = Object.entries(
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-	<Header />
+	<Header entries={notes} />
 	<div
-		class="max-w-[50rem] justify-self-center px-4 md:grid md:grid-cols-[15%_auto]"
+		class="w-full max-w-[50rem] justify-self-center px-4 md:grid md:grid-cols-[15%_auto]"
 	>
 		{
-			days
-				.sort()
-				.reverse()
-				.map(([date, entries]) => {
-					const formatted = format(date, "MMMM dd");
+			notes.map(async (entry) => {
+				const date = format(entry.data.date, "MMM dd, yyyy");
+				const time = format(entry.data.date, "hh:mm a");
+				const productIds = JSON.stringify(
+					entry.data.products.map((product) => product.id),
+				);
 
-					return (
-						<>
-							<div class="!mt-0">
-								<p class="md:content-center md:pr-4 md:text-right md:leading-none">
-									<strong class="text-xs">{formatted}</strong>
-									<span class="text-xs">12:00PM</span>
-								</p>
-							</div>
-							<Steps>
-								<ol class="!mt-0">
-									{entries?.map(async (entry) => {
-										const { Content } = await entry.render();
+				const { Content } = await entry.render();
 
-										return (
-											<li>
-												<div>
-													<a
-														href={`/release-notes/${entry.slug}/`}
-														class="no-underline hover:underline"
-													>
-														<h3 class="mb-4 !leading-[28px] text-black">
-															{entry.data.title}
-														</h3>
-													</a>
-													<ProductPills products={entry.data.products} />
-												</div>
-												<p>
-													<Content />
-												</p>
-											</li>
-										);
-									})}
-								</ol>
-							</Steps>
-						</>
-					);
-				})
+				return (
+					<>
+						<div class="!mt-0" data-products={productIds}>
+							<p class="md:content-center md:pr-4 md:text-right md:leading-none">
+								<strong class="text-xs">{date}</strong>
+								<span class="text-xs">{time}</span>
+							</p>
+						</div>
+						<Steps>
+							<ol class="!mt-0" data-products={productIds}>
+								<li>
+									<div>
+										<a
+											href={`/release-notes/${entry.slug}/`}
+											class="no-underline hover:underline"
+										>
+											<h3 class="mb-4 !leading-[28px] text-black">
+												{entry.data.title}
+											</h3>
+										</a>
+										<ProductPills products={entry.data.products} />
+									</div>
+									<p>
+										<Content />
+									</p>
+								</li>
+							</ol>
+						</Steps>
+					</>
+				);
+			})
 		}
 	</div>
 </StarlightPage>
+
+<script>
+	const filter = document.querySelector<HTMLSelectElement>(
+		"#release-notes-filter",
+	);
+
+	filter?.addEventListener("change", () => {
+		const entries = document.querySelectorAll<HTMLElement>("[data-products]");
+
+		if (!entries) return;
+
+		const value = filter.value;
+
+		if (value === "all") {
+			entries.forEach((entry) => (entry.style.display = ""));
+
+			return;
+		}
+
+		for (const entry of entries) {
+			if (!entry.dataset.products) continue;
+
+			const products = JSON.parse(entry.dataset.products);
+
+			const show = products.includes(value);
+
+			if (show) {
+				entry.style.display = "";
+			} else {
+				entry.style.display = "none";
+			}
+		}
+	});
+</script>
 
 <style>
 	:root {
