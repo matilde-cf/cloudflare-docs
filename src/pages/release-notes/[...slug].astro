@@ -35,7 +35,13 @@ const { Content, headings } = await note.render();
 	hideTitle={true}
 	hideBreadcrumbs={true}
 >
-	<Header showBackLink={true} />
+	<Header />
+	<div class="!mt-0 mb-10">
+		<a href="/release-notes/" class="no-underline">
+			<span class="text-accent">← </span>
+			<span class="text-black">Back to all posts</span>
+		</a>
+	</div>
 	<div class="w-full justify-self-center">
 		<h2>{note.data.title}</h2>
 		<div>
@@ -52,6 +58,30 @@ const { Content, headings } = await note.render();
 
 <style>
 	:root {
-		--sl-content-width: 55rem !important;
+		--sl-content-width: 50rem !important;
+
+		.sl-markdown-content {
+			margin-top: 0px !important;
+		}
+
+		.content-panel {
+			padding-top: 0px !important;
+		}
+
+		.sl-markdown-content
+			:not(a, strong, em, del, span, input, code, br)
+			+ :not(
+				a,
+				strong,
+				em,
+				del,
+				span,
+				input,
+				code,
+				br,
+				:where(.not-content *)
+			) {
+			margin-top: 1.5rem;
+		}
 	}
 </style>

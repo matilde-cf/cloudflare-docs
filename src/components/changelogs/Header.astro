@@ -1,23 +1,13 @@
 ---
 import { Image } from "astro:assets";
-import { z } from "astro:schema";
 
+import { StarlightIcon } from "..";
 import HeroImage from "~/assets/images/release-notes/hero.svg";
-
-type Props = z.infer<typeof props>;
-
-const props = z.object({
-	showBackLink: z.boolean().optional(),
-});
-
-const { showBackLink } = props.parse(Astro.props);
 ---
 
-<div class="w-full justify-self-center flex mb-16">
-	<div class="flex justify-between w-full">
-		<div
-			class="flex flex-col w-full text-center items-center sm:items-start justify-center"
-		>
+<div class="w-full h-[300px] flex mb-16">
+	<div class="flex justify-between w-full items-center">
+		<div class="flex flex-col w-full text-center sm:items-start justify-center">
 			<div class="!mt-0 sm:hidden">
 				<Image src={HeroImage} alt="hero image" height="240" />
 			</div>
@@ -25,18 +15,18 @@ const { showBackLink } = props.parse(Astro.props);
 			<p>
 				New updates and improvements at Cloudflare.
 				<span>
-					<a href="/release-notes/feed.rss"> Subscribe to RSS </a>
+					<a
+						href="/release-notes/feed.rss"
+						class="no-underline text-[#056DFF] dark:text-[#79B1FF] hover:!text-[#056DFF] dark:hover:!text-[#79B1FF] hover:bg-[#DCEBFF] dark:hover:bg-[#002B66] hover:rounded-[4px] px-2"
+					>
+						Subscribe to RSS
+						<StarlightIcon
+							name="rss"
+							size="18px"
+							class="!inline align-text-top"
+						/>
+					</a>
 				</span>
-			</p>
-			<p>
-				{
-					showBackLink && (
-						<a href="/release-notes/" class="no-underline">
-							<span class="text-accent">← </span>
-							<span class="text-black">Back to all posts</span>
-						</a>
-					)
-				}
 			</p>
 		</div>
 		<div class="!mt-0 hidden sm:block">
